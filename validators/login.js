@@ -1,14 +1,9 @@
 const Validator = require("validator");
 
-module.exports = validateRegisterInput = (data) => {
+module.exports = validateLoginInput = (data) => {
     let errors = {};
-    data.name = data.name.trim() || "";
     data.email = data.email.trim() || "";
     data.password = data.password || "";
-
-    if (Validator.isEmpty(data.name)) {
-        errors.name = "Name is required";
-    }
 
     if (Validator.isEmpty(data.email)) {
         errors.email = "Email is required";
@@ -26,6 +21,6 @@ module.exports = validateRegisterInput = (data) => {
 
     return {
         errors,
-        isValid: Object.keys(errors).length === 0
+        isValid: Object.keys(errors).length === 0,
     };
 };

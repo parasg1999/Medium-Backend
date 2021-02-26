@@ -1,11 +1,12 @@
 const router = require('express').Router();
 const blogController = require('../controllers/blogController');
+const uploadImage = require('../utils/fileUpload');
 
 const { isUserLoggedIn } = require('../utils/ensureAuth');
 
 router
     .route('/')
-    .post(isUserLoggedIn, blogController.postBlog);
+    .post(isUserLoggedIn, uploadImage.single('bannerImage'), blogController.postBlog);
 
 router
     .route('/:id')

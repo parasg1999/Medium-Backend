@@ -4,8 +4,8 @@ module.exports =
 {
     getBlog: (req, res, next) => {
         Blog.findById(req.params.id)
-            .populate('author')
-            .populate('comments.user')
+            .populate('author', 'name email _id')
+            .populate('comments.user', 'name email _id')
             .then(blog => {
                 if (!blog) {
                     res.status(404).send()
@@ -21,6 +21,10 @@ module.exports =
         const { title, description, content, image, tags } = req.body;
         const author = req.user._id;
 
+        const bannerImage = req.file ?
+            `/uploads/${req.file.filename}` :
+            undefined
+
         const newBlog = new Blog({
             title,
             description,
@@ -28,11 +32,12 @@ module.exports =
             image,
             author,
             tags,
+            bannerImage,
         });
 
         newBlog.save()
-            .then(blog => res.send(blog))
-            .catch(err => res.status(400).send(err))
+        .then(blog => res.send(blog))
+        .catch(err => res.status(400).send(err))
     },
 
     clapBlog: (req, res, next) => {

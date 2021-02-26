@@ -1,5 +1,16 @@
 const multer = require('multer');
+const fs = require('fs');
 const path = require('path');
+
+let dir = __dirname + '/../static';
+if (!fs.existsSync(dir)) {
+    fs.mkdirSync(dir);
+}
+
+dir = __dirname + '/../static/uploads';
+if (!fs.existsSync(dir)) {
+    fs.mkdirSync(dir);
+}
 
 // Setting up Multer
 const storage = multer.diskStorage({

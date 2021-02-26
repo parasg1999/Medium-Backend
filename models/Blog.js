@@ -21,7 +21,7 @@ let blogSchema = new mongoose.Schema({
         type: String,
         required: [true, 'The content can\'t be empty'],
     },
-    image: String,
+    bannerImage: String,
     claps: {
         type: Number,
         default: 0,

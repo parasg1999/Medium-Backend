@@ -2,11 +2,13 @@ const User = require('../models/User');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
-const validateRegisterInput = require('../validators/register');
+const { validateRegisterInput } = require('../validators');
 
 module.exports = {
     getUser: (req, res, next) => {
         User.findById(req.params.id)
+        .populate('followers', 'name email _id')
+        .populate('following', 'name email _id')
             .then(user => {
                 if (!user) {
                     return res.status(404).send({ error: 'No user found' })
@@ -18,17 +20,15 @@ module.exports = {
     },
 
     createUser: (req, res, next) => {
-        /** 
-         * @TODO Add validation
-         // const {errors, isValid} = validateUserRegister(req.body);
-        */
-
         const { errors, isValid } = validateRegisterInput(req.body);
-        console.log(errors, isValid);
 
         if (!isValid) return res.status(400).send({ errors });
 
-        const { name, email, password, profileImage } = req.body;
+        const { name, email, password } = req.body;
+
+        const profileImage = req.file ?
+            `/uploads/${req.file.filename}` :
+            undefined
 
         let newUser = new User({
             name, email, password, profileImage,
@@ -41,10 +41,14 @@ module.exports = {
                 return newUser.save()
             })
             .then(user => res.send(user))
-            .catch(err => res.status(400).send(err.toString()))
+            .catch(err => res.status(400).send(err))
     },
 
     loginUser: (req, res, next) => {
+        const { errors, isValid } = validateLoginInput(req.body);
+
+        if (!isValid) return res.status(400).send({ errors });
+
         const { email, password } = req.body;
         let scopeVariable = {};
         User.findOne({ email })
@@ -72,8 +76,18 @@ module.exports = {
             .catch(err => res.status(400).send(err.toString()));
     },
 
+    deleteUser: (req, res, next) => {
+        if (req.body.id == req.user._id) {
+            User.findByIdAndDelete(req.body.id)
+                .then(doc => res.send(doc))
+                .catch(err => res.status(400).send(err));
+        } else {
+            return res.status(403).send()
+        }
+    },
+
     followUser: (req, res, next) => {
-        if (req.user._id === req.body.id) {
+        if (req.user._id == req.body.id) {
             return res.status(400).send()
         }
 
@@ -96,7 +110,7 @@ module.exports = {
     },
 
     unfollowUser: (req, res, next) => {
-        if (req.user._id === req.body.id) {
+        if (req.user._id == req.body.id) {
             return res.status(400).send()
         }
 
@@ -117,6 +131,4 @@ module.exports = {
             .then(user => res.send({ success: true }))
             .catch(err => res.status(400).send(err))
     },
-
-
 }

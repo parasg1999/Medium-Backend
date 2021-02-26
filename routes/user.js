@@ -27,15 +27,18 @@ router
 
 router
     .route('/login')
-    .post(userController.loginUser)
+    .post(userController.loginUser);
 
 router
     .route('/follow')
-    .post(isUserLoggedIn, userController.followUser)
+    .post(isUserLoggedIn, userController.followUser);
 
 router
     .route('/unfollow')
-    .post(isUserLoggedIn, userController.followUser)
+    .post(isUserLoggedIn, userController.unfollowUser);
 
+router
+    .route('/delete')
+    .post(isUserLoggedIn, userController.deleteUser);
 
 module.exports = router;
