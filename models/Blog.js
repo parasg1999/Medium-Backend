@@ -1,15 +1,31 @@
 const mongoose = require('mongoose');
 
 let blogSchema = new mongoose.Schema({
-    title: String,
-    description: String,
+    title: {
+        type: String,
+        trim: true,
+        required: [true, 'Title is required'],
+    },
+    description: {
+        type: String,
+        trim: true,
+        required: [true, 'Small description is needed'],
+    },
     author: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
+        required: true,
     },
-    content: String,
+    tags: [{ type: String }],
+    content: {
+        type: String,
+        required: [true, 'The content can\'t be empty'],
+    },
     image: String,
-    claps: Number,
+    claps: {
+        type: Number,
+        default: 0,
+    },
     comments: [
         {
             user: {
@@ -26,7 +42,5 @@ let blogSchema = new mongoose.Schema({
         }
     ],
 });
-
-// blogSchema.methods.
 
 module.exports = mongoose.model('Blog', blogSchema)

@@ -18,16 +18,44 @@ module.exports =
     },
 
     postBlog: (req, res, next) => {
+        const { title, description, content, image, tags } = req.body;
+        const author = req.user._id;
 
+        const newBlog = new Blog({
+            title,
+            description,
+            content,
+            image,
+            author,
+            tags,
+        });
+
+        newBlog.save()
+            .then(blog => res.send(blog))
+            .catch(err => res.status(400).send(err))
     },
 
-    clapBlog: () => {
-
+    clapBlog: (req, res, next) => {
+        // Blog.findByIdAndUpdate()
     },
 
-    commentBlog: () => {
+    commentBlog: (req, res, next) => {
+        const { blogID, content } = req.body;
+        Blog.findByIdAndUpdate(blogID, {
+            $push: {
+                comments: {
+                    user: req.user._id,
+                    content,
+                }
+            }
+        }, { new: true })
+            .then(blog => {
+                if (!blog) return res.status(404).send('No blog found');
 
+                return res.send(blog);
+            })
+            .catch(err => res.status(400).send(err));
     },
 
-    
+
 }

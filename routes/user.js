@@ -2,6 +2,7 @@ const router = require('express').Router();
 const userController = require('../controllers/userController');
 
 const { isUserLoggedIn } = require('../utils/ensureAuth');
+const uploadImage = require('../utils/fileUpload');
 
 /**
  * @route POST /user/register
@@ -13,7 +14,7 @@ const { isUserLoggedIn } = require('../utils/ensureAuth');
  */
 router
     .route('/register')
-    .post(userController.createUser);
+    .post(uploadImage.single('profileImage'), userController.createUser);
 
 /**
  * @route GET /user/:id

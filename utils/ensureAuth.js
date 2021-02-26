@@ -23,13 +23,4 @@ const isUserLoggedIn = (req, res, next) => {
         .catch(() => res.status(401).send());
 };
 
-isUserVerified = (req, res, next) => {
-    if (req.user.isRegistered) {
-        next();
-    } else {
-        res.redirect('/user/moreDetails');
-    }
-}
-
-
 module.exports = { isUserLoggedIn };

@@ -1,6 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const bodyParser = require('body-parser');
+const fs = require('fs');
 require('dotenv').config();
 
 const userRoute = require('./routes/user');
@@ -8,6 +8,17 @@ const blogRoute = require('./routes/blog');
 
 const app = express();
 
+let dir = __dirname + '/static';
+if (!fs.existsSync(dir)) {
+    fs.mkdirSync(dir);
+}
+
+dir = __dirname + '/static/uploads';
+if (!fs.existsSync(dir)) {
+    fs.mkdirSync(dir);
+}
+
+app.use(express.static('static'));
 app.use(express.json());
 
 mongoose

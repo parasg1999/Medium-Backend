@@ -2,6 +2,8 @@ const User = require('../models/User');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
+const validateRegisterInput = require('../validators/register');
+
 module.exports = {
     getUser: (req, res, next) => {
         User.findById(req.params.id)
@@ -21,6 +23,11 @@ module.exports = {
          // const {errors, isValid} = validateUserRegister(req.body);
         */
 
+        const { errors, isValid } = validateRegisterInput(req.body);
+        console.log(errors, isValid);
+
+        if (!isValid) return res.status(400).send({ errors });
+
         const { name, email, password, profileImage } = req.body;
 
         let newUser = new User({
@@ -34,7 +41,7 @@ module.exports = {
                 return newUser.save()
             })
             .then(user => res.send(user))
-            .catch(err => res.status(400).send(err))
+            .catch(err => res.status(400).send(err.toString()))
     },
 
     loginUser: (req, res, next) => {
