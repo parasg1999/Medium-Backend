@@ -6,7 +6,7 @@ Used to register a user on the platform.
 
 **Method** : `POST`
 
-**Auth required** : `No`
+**Auth required** : `NO`
 
 **Data constraints**
 

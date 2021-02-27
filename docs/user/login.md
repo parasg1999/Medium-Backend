@@ -6,7 +6,7 @@ Used to collect a Token for a registered User.
 
 **Method** : `POST`
 
-**Auth required** : NO
+**Auth required** : `NO`
 
 **Data constraints**
 

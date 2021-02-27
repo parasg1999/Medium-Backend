@@ -10,9 +10,8 @@ module.exports =
     getBlogs: (req, res, next) => {
         let page = req.query.page || 1;
         const postsPerPage = 2;
-        try {
-            page = parseInt(page, 10);
-        } catch (err) {
+        page = parseInt(page, 10);
+        if (Number.isNaN(page)) {
             return res.status(400).send({ error: 'Invaid page number' })
         }
 
@@ -61,10 +60,13 @@ module.exports =
 
     getBlogByTags: (req, res, next) => {
         const searchTags = req.query.tags;
+        if (searchTags === undefined) {
+            return res.status(400).send({ error: 'Tags required' })
+        }
         Blog.find({ tags: { $in: searchTags } })
             .populate('author', 'name email')
             .then(blogs => res.send(blogs))
-            .catch(err => console.log(err))
+            .catch(err => res.status(400).send({ error: err.toString() }))
     },
 
     postBlog: (req, res, next) => {

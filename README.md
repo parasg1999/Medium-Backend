@@ -11,9 +11,9 @@ These endpoints don't require authentication
 - [Get user details](docs/user/details.md) : `GET /user/:id`
 
 ### Blog related
-- [Get all blogs](docs/getAllBlogs.md) : `GET /blog`
-- [Get a specific blog](docs/getAllBlogs.md) : `GET /blog/:id`
-- [Search blogs using tags](docs/searchBlogsByTags.md): `GET /blog/search`
+- [Get all blogs](docs/blog/getAll.md) : `GET /blog`
+- [Get a specific blog](docs/blog/getOne.md) : `GET /blog/:id`
+- [Search blogs using tags](docs/blog/searchByTags.md): `GET /blog/search`
 
 ## Endpoints that require Authentication
 Closed endpoints require a valid Token to be included in the header of the request. A Token can be acquired from the Login (check above).
@@ -26,9 +26,8 @@ The token should be passed as the value of the header called `Authorization`.
 - [Delete user](docs/user/delete.md) : `DELETE /user`
 
 ### Blog related
-- [Post blog]()
-- [Delete blog]()
-- [Clap on blog]()
-- [Comment on blog]()
-- [Delete Comment from blog]()
-- [Post blog]()
+- [Post blog](docs/blog/create.md) : `POST /blog`
+- [Delete blog](docs/blog/delete.md) : `DELETE /blog`
+- [Clap on blog](docs/blog/clap.md) : `POST /blog/clap`
+- [Comment on blog](docs/blog/comment.md) : `POST /blog/comment`
+- [Delete Comment from blog](docs/blog/deleteComment.md) : `DELETE /blog/comment`

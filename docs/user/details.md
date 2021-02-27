@@ -1,12 +1,12 @@
 # Get User details using id
 
-Used to register a user on the platform.
+Used to search for a user using their ID.
 
 **URL** : `/user/:id` (where `:id` is the `_id` of the user)
 
 **Method** : `GET`
 
-**Auth required** : NO
+**Auth required** : `NO`
 
 **Example** : `/user/603a052c499f187355160359`
 

@@ -6,7 +6,7 @@ Delete user only if the user is logged in
 
 **Method** : `DELETE`
 
-**Auth required** : YES
+**Auth required** : `YES`
 
 **Data constraints**
 

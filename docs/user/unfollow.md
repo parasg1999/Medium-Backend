@@ -6,7 +6,7 @@ Unfollow a user
 
 **Method** : `POST`
 
-**Auth required** : YES
+**Auth required** : `YES`
 
 **Data constraints**
 
