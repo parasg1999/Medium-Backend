@@ -112,7 +112,10 @@ module.exports =
             $inc: { claps: 1 },
             $addToSet: { clappers: req.user._id }
         }, { new: true })
-            .then(blog => res.send(blog))
+            .then(blog => {
+                if (!blog) return res.status(404).send({ error: 'No blog found' });
+                return res.send(blog)
+            })
             .catch(err => res.status(400).send(err));
     },
 
@@ -131,15 +134,18 @@ module.exports =
             }
         }, { new: true })
             .then(blog => {
-                if (!blog) return res.status(404).send('No blog found');
+                if (!blog) return res.status(404).send({ error: 'No blog found' });
 
-                return res.send(blog);
+                return res.send({ success: true });
             })
             .catch(err => res.status(400).send(err));
     },
 
     deleteComment: (req, res, next) => {
         const { blogID, commentID } = req.body;
+        if (!blogID || !commentID) {
+            return res.status(400).send({ error: 'Please send required parameters' })
+        }
         Blog.findByIdAndUpdate(blogID, {
             $pull: {
                 comments: {
@@ -149,9 +155,9 @@ module.exports =
             }
         }, { new: true })
             .then(blog => {
-                if (!blog) return res.status(404).send('No blog found');
+                if (!blog) return res.status(404).send({ error: 'No blog found' });
 
-                return res.send(blog);
+                return res.send({ success: true });
             })
             .catch(err => res.status(400).send(err));
     },

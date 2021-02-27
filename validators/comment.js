@@ -5,7 +5,7 @@ module.exports = validateCommentInput = (data) => {
     data.content = data.content?.trim() || "";
 
     if (Validator.isEmpty(data.content)) {
-        errors.email = "We can't work without content";
+        errors.content = "We can't work without content";
     }
 
     return {

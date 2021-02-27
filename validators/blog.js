@@ -7,15 +7,15 @@ module.exports = validateNewBlogInput = (data) => {
     data.content = data.content?.trim() || "";
 
     if (Validator.isEmpty(data.title)) {
-        errors.name = "Title is required";
+        errors.title = "Title is required";
     }
 
     if (Validator.isEmpty(data.description)) {
-        errors.email = "Description is required";
+        errors.description = "Description is required";
     }
 
     if (Validator.isEmpty(data.content)) {
-        errors.email = "We can't work without content";
+        errors.content = "We can't work without content";
     }
 
     return {
