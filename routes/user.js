@@ -39,6 +39,6 @@ router
 
 router
     .route('/delete')
-    .post(isUserLoggedIn, userController.deleteUser);
+    .delete(isUserLoggedIn, userController.deleteUser);
 
 module.exports = router;

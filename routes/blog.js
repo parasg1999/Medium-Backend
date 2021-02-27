@@ -6,15 +6,22 @@ const { isUserLoggedIn } = require('../utils/ensureAuth');
 
 router
     .route('/')
-    .post(isUserLoggedIn, uploadImage.single('bannerImage'), blogController.postBlog);
+    .get(blogController.getBlogs)
+    .post(isUserLoggedIn, uploadImage.single('bannerImage'), blogController.postBlog)
+    .delete(isUserLoggedIn, blogController.deleteBlog);
+
+router
+    .route('/search')
+    .get(blogController.getBlogByTags);
 
 router
     .route('/:id')
-    .get(blogController.getBlog);
+    .get(blogController.getSingleBlog);
 
 router
     .route('/comment')
-    .post(isUserLoggedIn, blogController.commentBlog);
+    .post(isUserLoggedIn, blogController.commentBlog)
+    .delete(isUserLoggedIn, blogController.deleteComment);
 
 router
     .route('/clap')

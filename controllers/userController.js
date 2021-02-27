@@ -2,13 +2,16 @@ const User = require('../models/User');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
-const { validateRegisterInput } = require('../validators');
+const {
+    validateRegisterInput,
+    validateLoginInput,
+} = require('../validators');
 
 module.exports = {
     getUser: (req, res, next) => {
-        User.findById(req.params.id)
-        .populate('followers', 'name email _id')
-        .populate('following', 'name email _id')
+        User.findById(req.params.id, { password: 0 })
+            .populate('followers', 'name email _id')
+            .populate('following', 'name email _id')
             .then(user => {
                 if (!user) {
                     return res.status(404).send({ error: 'No user found' })
@@ -40,12 +43,17 @@ module.exports = {
                 newUser.password = hash;
                 return newUser.save()
             })
-            .then(user => res.send(user))
+            .then(user => {
+                const { _id, name, email } = user;
+                return res.send({ _id, name, email });
+            })
             .catch(err => res.status(400).send(err))
     },
 
     loginUser: (req, res, next) => {
         const { errors, isValid } = validateLoginInput(req.body);
+
+        console.log(errors, isValid);
 
         if (!isValid) return res.status(400).send({ errors });
 
@@ -73,7 +81,7 @@ module.exports = {
                 })
             })
             .then((token) => res.send({ token }))
-            .catch(err => res.status(400).send(err.toString()));
+            .catch(err => res.status(400).send({ error: err.toString() }));
     },
 
     deleteUser: (req, res, next) => {

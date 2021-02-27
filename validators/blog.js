@@ -2,9 +2,9 @@ const Validator = require("validator");
 
 module.exports = validateNewBlogInput = (data) => {
     let errors = {};
-    data.title = data.title.trim() || "";
-    data.description = data.description.trim() || "";
-    data.content = data.content.trim() || "";
+    data.title = data.title?.trim() || "";
+    data.description = data.description?.trim() || "";
+    data.content = data.content?.trim() || "";
 
     if (Validator.isEmpty(data.title)) {
         errors.name = "Title is required";

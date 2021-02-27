@@ -2,8 +2,8 @@ const Validator = require("validator");
 
 module.exports = validateRegisterInput = (data) => {
     let errors = {};
-    data.name = data.name.trim() || "";
-    data.email = data.email.trim() || "";
+    data.name = data.name?.trim() || "";
+    data.email = data.email?.trim() || "";
     data.password = data.password || "";
 
     if (Validator.isEmpty(data.name)) {

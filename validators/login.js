@@ -2,7 +2,7 @@ const Validator = require("validator");
 
 module.exports = validateLoginInput = (data) => {
     let errors = {};
-    data.email = data.email.trim() || "";
+    data.email = data.email?.trim() || "";
     data.password = data.password || "";
 
     if (Validator.isEmpty(data.email)) {
