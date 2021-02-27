@@ -2,6 +2,15 @@
 
 This is the implementation for how I think the backend of a blogging platform like Medium would function.
 
+**Note**
+There is a warning when starting the server which looks like
+
+```
+Warning: Accessing non-existent property 'MongoError' of module exports inside circular dependency
+```
+
+According to a [MongoDB Employee](https://developer.mongodb.com/community/forums/t/warning-accessing-non-existent-property-mongoerror-of-module-exports-inside-circular-dependency/15411/6), this is a warning that will be fixed in the next release and is safe to ignore.
+
 ## Open Endpoints
 These endpoints don't require authentication
 
