@@ -1,8 +1,8 @@
-# Delete User
+# Delete Blog
 
-Delete user only if the user is logged in
+Delete blog only if the author is logged in
 
-**URL** : `/user`
+**URL** : `/blog`
 
 **Method** : `DELETE`
 
@@ -12,7 +12,7 @@ Delete user only if the user is logged in
 
 ```json
 {
-    "id": "user id to delete"
+    "id": "blog id to delete"
 }
 ```
 
@@ -33,15 +33,14 @@ Delete user only if the user is logged in
 ```json
 {
     "_id": "603a18d2f7e08b9282f83727",
-    "email": "parasg1999@gmail.com"
 }
 ```
 
 ## Error Response
 
-**Condition** : If `_id` and `user id` don't match.
+**Condition** : If no blog can be found with given id and author match.
 
-**Code** : `403 FORBIDDEN`
+**Code** : `404 NOT FOUND`
 
 ---
 

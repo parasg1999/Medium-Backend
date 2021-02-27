@@ -74,7 +74,7 @@ module.exports =
 
         if (!isValid) return res.status(400).send({ errors });
 
-        const { title, description, content, image, tags } = req.body;
+        const { title, description, content, tags } = req.body;
         const author = req.user._id;
 
         const bannerImage = req.file ?
@@ -85,7 +85,6 @@ module.exports =
             title,
             description,
             content,
-            image,
             author,
             tags,
             bannerImage,
@@ -102,7 +101,8 @@ module.exports =
                 if (!blog) {
                     return res.status(404).send(blog)
                 }
-                return res.send(blog)
+                const { _id } = blog;
+                return res.send({ _id })
             })
             .catch(err => res.status(400).send(err));
     },
