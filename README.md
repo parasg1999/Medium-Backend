@@ -31,3 +31,8 @@ The token should be passed as the value of the header called `Authorization`.
 - [Clap on blog](docs/blog/clap.md) : `POST /blog/clap`
 - [Comment on blog](docs/blog/comment.md) : `POST /blog/comment`
 - [Delete Comment from blog](docs/blog/deleteComment.md) : `DELETE /blog/comment`
+
+## Extra features
+These are the features that I have not implemented due to time contraints but could be done in the same way as the others
+- Updating blogs, comments and user profile : These features can be implemented in the same manner as creating new objects. The same validation functions can be used.
+- Single image upload : While writing blogs, users wmy want to include images in the body, so the frontend will use this route for uploading the image and get the url of the image to be displayed. This is same as uploading bannerImage but will need a separate route.

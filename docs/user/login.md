@@ -1,6 +1,6 @@
 # Login
 
-Used to collect a Token for a registered User.
+Used to collect a token (to be used as `Authorization` header) for a registered User.
 
 **URL** : `/user/login`
 

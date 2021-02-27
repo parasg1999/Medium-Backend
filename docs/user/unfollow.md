@@ -20,7 +20,7 @@ Unfollow a user
 
 ```json
 {
-    "_id": "603a18d2f7e08b9282f83727"
+    "id": "603a18d2f7e08b9282f83727"
 }
 ```
 
