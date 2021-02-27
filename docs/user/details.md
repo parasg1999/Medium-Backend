@@ -27,6 +27,7 @@ Used to search for a user using their ID.
     "_id": "603a052c499f187355160359",
     "name": "Fname Lname",
     "email": "someone@example.com",
+    "profileImage": "/uploads/abc.png" // only if exists
 }
 ```
 
