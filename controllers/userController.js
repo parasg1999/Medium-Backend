@@ -47,7 +47,12 @@ module.exports = {
                 const { _id, name, email } = user;
                 return res.send({ _id, name, email });
             })
-            .catch(err => res.status(400).send(err))
+            .catch(err => {
+                if (err.name === 'MongoError' && err.keyValue.email === email) {
+                    return res.status(400).send({ error: 'Already exists' })
+                }
+                return res.status(400).send(err)
+            })
     },
 
     loginUser: (req, res, next) => {
@@ -87,7 +92,10 @@ module.exports = {
     deleteUser: (req, res, next) => {
         if (req.body.id == req.user._id) {
             User.findByIdAndDelete(req.body.id)
-                .then(doc => res.send(doc))
+                .then(doc => {
+                    const { _id, email } = doc;
+                    return res.send({ _id, email })
+                })
                 .catch(err => res.status(400).send(err));
         } else {
             return res.status(403).send()
@@ -114,7 +122,7 @@ module.exports = {
                 )
             })
             .then(user => res.send({ success: true }))
-            .catch(err => res.status(400).send(err))
+            .catch(err => res.status(400).send({error: err.toString()}))
     },
 
     unfollowUser: (req, res, next) => {

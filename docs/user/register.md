@@ -6,7 +6,7 @@ Used to register a user on the platform.
 
 **Method** : `POST`
 
-**Auth required** : NO
+**Auth required** : `No`
 
 **Data constraints**
 
@@ -57,5 +57,19 @@ Used to register a user on the platform.
     "errors": {
         "[field_name]": "error_message"
     }
+}
+```
+
+---
+
+**Condition** : If account already exists.
+
+**Code** : `400 BAD REQUEST`
+
+**Content** :
+
+```json
+{
+    "error": "Already exists"
 }
 ```
