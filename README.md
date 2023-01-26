@@ -1,4 +1,6 @@
-# Medium-API
+*\* This was made as a submission for an interview assignment, so marking this as an archived repo!*
+
+# Medium Backend
 
 This is the implementation for how I think the backend of a blogging platform like Medium would function.
 
